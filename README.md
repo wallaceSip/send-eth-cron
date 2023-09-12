@@ -18,22 +18,28 @@ A Node.js script to send 0 ETH to an Ethereum smart contract every 24 hours usin
    cd eth-scheduler
 
 
-2. install the node modules
-npm install
+2. install the node modules:
+ 
+   ```bash
+   npm install
+   
 
-3.Create a .env file in your project directory and define your private key as an environment variable:
-PRIVATE_KEY=YOUR_PRIVATE_KEY_HERE
+3. Create a .env file in your project directory and define your private key as an environment variable:
+   ```bash
+   PRIVATE_KEY=YOUR_PRIVATE_KEY_HERE
 
-#Configuration
+## Configuration
 In the send-eth.js file, you need to configure the following:
 
-Fetch private key from environment variables using dotenv.
-Replace 'YOUR_PROVIDER_URL' with the URL of your Ethereum node (e.g., Infura or your own Ethereum node).
-Fill in the contract ABI for your specific smart contract.
-Set the correct contract address in contractAddress.
+- Fetch private key from environment variables using dotenv.
+- Replace 'YOUR_PROVIDER_URL' with the URL of your Ethereum node (e.g., Infura or your own Ethereum node).
+- Fill in the contract ABI for your specific smart contract.
+- Set the correct contract address in contractAddress.
 
-#Usage
+## Usage
 Run the script using Node.js:
-node send-eth.js
+   ```bash
+   node send-eth.js
 
-This script will send 0 ETH to the specified smart contract every 24 hours with a custom gasLimit and an optimal gasPrice.
+
+# This script will send 0 ETH to the specified smart contract every 24 hours with a custom gasLimit and an optimal gasPrice.
