@@ -7,7 +7,7 @@ A Node.js script to send 0 ETH to an Ethereum smart contract every 24 hours usin
 - Node.js installed on your machine
 - Ethereum wallet with a private key
 - Ethereum node URL (e.g., Infura or your own Ethereum node)
-- Knowledge of the smart contract's address and ABI
+- Knowledge of the smart contract's address
 
 ## Installation
 
@@ -24,9 +24,11 @@ A Node.js script to send 0 ETH to an Ethereum smart contract every 24 hours usin
    npm install
    
 
-3. Create a .env file in your project directory and define your private key as an environment variable:
+3. Create a .env file in your project directory and define your private key,polygonscan key and node URL as an environment variable:
    ```bash
    PRIVATE_KEY=YOUR_PRIVATE_KEY_HERE
+   SCAN_API_KEY=YOUR_API_KEY
+   NODE_URL=YOUR_NODE_URL
 
 ## Configuration
 In the send-eth.js file, you need to configure the following:
