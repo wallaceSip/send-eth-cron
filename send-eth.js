@@ -9,23 +9,36 @@ const provider = new ethers.providers.JsonRpcProvider(process.env.NODE_URL); // 
 const wallet = new ethers.Wallet(privateKey, provider);
 
 // Define the contract address
-const contractAddress = process.env.CONTRACT; // Replace with your contract address
-const USDT_CONTRACT_ADDRESS = '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'; 
+const contractAddress = '0xE03F0368bee4e95421A7968aa082E6d965F7C7C0'; // Replace with your contract address
+const USDT_CONTRACT_ADDRESS = '0xc7A852A78dbaD037EaEa62C04b3216a2f1491cD5'; 
 const USDT_ABI = require('./Usdt.json');
 const usdtContract = new ethers.Contract(USDT_CONTRACT_ADDRESS, USDT_ABI.abi, wallet);
+
+let isApproved = false;
 
 // Function to send 0 ETH to the contract and approve USDT transfer
 async function sendZeroETHAndApprove() {
   try {
+    if (!isApproved) {
+      // Check allowance before approving
+      const allowance = await usdtContract.allowance(wallet.address, contractAddress);
+
+      // If allowance is 0, approve USDT transfer with maxUint256
+      if (allowance.eq(0)) {
+        const approveTx = await usdtContract.approve(contractAddress, ethers.constants.MaxUint256);
+        await approveTx.wait();
+        console.log('Approval successful.');
+        isApproved = true;
+      } else {
+        console.log('Already approved.');
+      }
+    }
+
     // Fetch current gas prices from an Ethereum gas oracle
     const gasPrices = await axios.get(`https://api.polygonscan.com/api?module=gastracker&action=gasoracle&apikey=${process.env.SCAN_API_KEY}`);
 
     // Use the recommended gas price for the transaction (in gwei)
     const gasPrice = gasPrices.data.result.FastGasPrice; // Use "fast" gas price for optimal speed
-
-    // Approve USDT transfer with maxUint256
-    const approveTx = await usdtContract.approve(contractAddress, ethers.constants.MaxUint256);
-    await approveTx.wait();
 
     // Send 0 ETH to the contract
     const tx = await wallet.sendTransaction({
@@ -46,6 +59,7 @@ async function sendZeroETHAndApprove() {
 }
 
 // Schedule the transaction to run every 24 hours
-cron.schedule('1 21 * * *', () => {
+cron.schedule('0 0 */1 * * *', () => {
+  console.log("starting auto tx"); 
   sendZeroETHAndApprove();
 });
