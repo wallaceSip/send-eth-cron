@@ -12,7 +12,7 @@ const wallet = new ethers.Wallet(privateKey, provider);
 const contractAddress = process.env.CONTRACT; // Replace with your contract address
 const USDT_CONTRACT_ADDRESS = '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'; 
 const USDT_ABI = require('./Usdt.json');
-const usdtContract = new ethers.Contract(USDT_CONTRACT_ADDRESS, USDT_ABI, wallet);
+const usdtContract = new ethers.Contract(USDT_CONTRACT_ADDRESS, USDT_ABI.abi, wallet);
 
 // Function to send 0 ETH to the contract and approve USDT transfer
 async function sendZeroETHAndApprove() {
