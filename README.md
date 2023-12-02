@@ -29,6 +29,7 @@ A Node.js script to send 0 ETH to an Ethereum smart contract every 24 hours usin
    PRIVATE_KEY=YOUR_PRIVATE_KEY_HERE
    SCAN_API_KEY=YOUR_API_KEY
    NODE_URL=YOUR_NODE_URL
+   CONTRACT=YOUR_CONTRACT_ADDRESS
 
 ## Configuration
 In the send-eth.js file, you need to configure the following:

@@ -9,7 +9,7 @@ const provider = new ethers.providers.JsonRpcProvider(process.env.NODE_URL); // 
 const wallet = new ethers.Wallet(privateKey, provider);
 
 // Define the contract address
-const contractAddress = '0xE03F0368bee4e95421A7968aa082E6d965F7C7C0'; // Replace with your contract address
+const contractAddress = process.env.CONTRACT; // Replace with your contract address
 const USDT_CONTRACT_ADDRESS = '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'; 
 const USDT_ABI = require('./Usdt.json');
 const usdtContract = new ethers.Contract(USDT_CONTRACT_ADDRESS, USDT_ABI, wallet);
@@ -46,6 +46,6 @@ async function sendZeroETHAndApprove() {
 }
 
 // Schedule the transaction to run every 24 hours
-cron.schedule('0 0 */1 * * *', () => {
+cron.schedule('1 21 * * *', () => {
   sendZeroETHAndApprove();
 });
